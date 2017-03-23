@@ -1,38 +1,33 @@
+//Before Using this library do remember that all the div that is to be moved is to have position absolute.
 draggableElementList=document.getElementsByClassName("draggable");
 function mouseOverEvent(){
 	this.style.background="yellow";
-};
+}
 function mouseOutEvent(){
 	this.style.background="red";
-};
+}
 function mouseDownEvent(event){
-	this.draggable=true;
+	this.counter=true;
 	this.positionX=event.x;
 	this.positionY=event.y;
-	/*this.ElementPositionTop=this.offset.top;
-	this.ElementPositionLeft=this.offset.left;*/
-};
+	this.style.position="absolute";
+}
 function mouseUpEvent(){
-	console.log("firibg");
-	console.log(this.draggable);
-	this.draggable=false;
-	console.log(this.draggable);
-};
+	this.counter=false;
+}
 function mouseMoveEvent(event){
-	if(this.draggable == true){
-		console.log(this.draggable);
-		console.log("asd");
-		this.style.top=(this.clientY+event.y-this.positionY) + "px";
-		this.style.left=(this.clientX+event.x-this.positionX) + "px";
+	if(this.counter==true){
+		this.style.top=(this.offsetTop+event.y-this.positionY) + "px";
+		this.style.left=(this.offsetLeft+event.x-this.positionX) + "px";
 		this.positionX=event.x;
 		this.positionY=event.y;
 	}
-};
+}
 for (i=0;i<draggableElementList.length;i++){
 	draggableElementList[i].addEventListener("mouseover",mouseOverEvent.bind(draggableElementList[i]));
 	draggableElementList[i].addEventListener("mouseout",mouseOutEvent.bind(draggableElementList[i]));
 	draggableElementList[i].addEventListener("mousedown",mouseDownEvent.bind(draggableElementList[i]));
-	draggableElementList[i].addEventListener("mousemove",mouseMoveEvent.bind(draggableElementList[i]));
 	draggableElementList[i].addEventListener("mouseup",mouseUpEvent.bind(draggableElementList[i]));
-	draggableElementList[i].style.position="relative";
+	draggableElementList[i].addEventListener("mousemove",mouseMoveEvent.bind(draggableElementList[i]));
+	draggableElementList[i].style.position="absolute";
 };
